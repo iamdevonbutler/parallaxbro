@@ -1,4 +1,5 @@
-// sleepyhead
+standalone and jquery dependent version
+
 // optmize scripts css/js
 
 // revert old top. element top === element top + collectyion top. makes things easier cuz u don't need to passs offset
@@ -19,3 +20,4 @@
 
 a debugger might be useful - a way provide info on each element.
 CI
+move at angle (left and right, custom function)

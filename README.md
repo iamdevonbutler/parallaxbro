@@ -5,7 +5,7 @@
 
 **npm**
 ```
-npm i --save parallaxbro;
+npm i --save parallaxbro
 ```
 
 ```
