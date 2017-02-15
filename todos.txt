@@ -1,23 +1,5 @@
 standalone and jquery dependent version
-
-// optmize scripts css/js
-
-// revert old top. element top === element top + collectyion top. makes things easier cuz u don't need to passs offset
-// bug: negative speed and negative top makes top positive.
-// zindex should be optional and not update dom if not passed.
-// refactor normalize collection
-// Parallax element extends parallax collection prototype. parllax element prototype adds 1 more method for delta.
-// update method and init method should be keyed like the hide,zindex,and top methods.
-// maybe cache style property on element like iscroll
-// @todo test to work with element with negative speed and zero speed.
-// Make all JS, no jQuery
-// init method is messy
-// test touch detection
-// hack to hide headlines when clicking read more.
-// min-height: 100%;
-    // height: auto !important;
-    // height:100%
+- via opt - m:0 p:0 element and collection
 
 a debugger might be useful - a way provide info on each element.
-CI
-move at angle (left and right, custom function)
+travis
