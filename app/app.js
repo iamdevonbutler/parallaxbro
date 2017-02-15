@@ -6,19 +6,23 @@ var page1, page2;
 
 page1 = laxbro.addCollection('#collection1', {
   top: 200,
-  hide: false,
+  // hide: {1000: true},
   center: true,
 });
 
 page1.addElements({
   '#img1': {
+    speed: {
+      0: 2,
+      500: -2,
+    },
     top: {
-      100: 100,
+      // 500: 100,
     },
-    hide: {
-      100: false,
-      300: true,
-    },
+    // hide: {
+    //   100: false,
+    //   600: true,
+    // },
     // speed: {
     //   0: 1,
     //   200: .5,
