@@ -34,7 +34,7 @@ gulp.task('styles', () => {
 
 gulp.task('scripts:app', () => {
   return browserify({debug: true})
-    .transform(babelify)
+    .transform('babelify', {presets: ["es2015"]})
     .require('./app/app.js', {entry: true})
     .bundle()
     .on('error', function handleError(err) {
@@ -47,7 +47,7 @@ gulp.task('scripts:app', () => {
 
 gulp.task('scripts:lib', () => {
   return browserify({debug: true})
-    .transform(babelify)
+    .transform('babelify', {presets: ["es2015"]})
     .require('./lib/index.js', {entry: true})
     .bundle()
     .on('error', function handleError(err) {
@@ -55,8 +55,25 @@ gulp.task('scripts:lib', () => {
       this.emit('end');
     })
     .pipe(source('index.js'))
-    .pipe($.if(compress, buffer()))
-    .pipe($.if(compress, $.uglify()))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('scripts:lib:compress', () => {
+  return browserify({debug: true})
+    .transform('babelify', {presets: ["es2015"]})
+    .require('./lib/index.js', {entry: true})
+    .bundle()
+    .on('error', function handleError(err) {
+      console.error(err.toString());
+      this.emit('end');
+    })
+    .pipe(source('index.min.js'))
+    .pipe(buffer())
+    .pipe($.uglify())
+    .on('error', function handleError(err) {
+      console.error(err.toString());
+      this.emit('end');
+    })
     .pipe(gulp.dest('dist'));
 });
 
@@ -109,15 +126,15 @@ gulp.task('serve', () => {
 
 });
 
-// gulp.task('build', ['clean', 'lint'], (cb) => {
-//   const preBuildTasks = ['styles', 'scripts:lib', 'scripts:app', 'extras'];
-//   return runSequence(preBuildTasks, 'html', cb);
-// });
+gulp.task('build', ['clean', 'lint'], (cb) => {
+  const preBuildTasks = ['styles', 'scripts:lib', 'scripts:lib:compress', 'scripts:app', 'extras'];
+  return runSequence(preBuildTasks, 'html', cb);
+});
 
-// gulp.task('deploy', ['build'], () => {
-//   return gulp.src('dist')
-//     .pipe($.subtree());
-// });
+gulp.task('deploy', ['build'], () => {
+  return gulp.src('dist')
+    .pipe($.subtree());
+});
 
 gulp.task('default', ['clean', 'lint'], () => {
   const preServeTasks = ['styles', 'scripts:lib', 'scripts:app', 'extras'];
