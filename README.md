@@ -2,7 +2,7 @@
 
 ```javascript
 const ParallaxBro = require('parallaxbro');
-const laxbro = new ParallaxBro('#wrapper');
+const laxbro = new ParallaxBro('#wrapper', '2000px');
 
 const c1 = laxbro.addCollection('#collection1', {
   top: 0,
@@ -110,6 +110,21 @@ collection.addElements('#wrapper', {
 
 ## API
 
+### ParallaxBro(selector, height, [options]) *- constructor.*
+
+**@param {String} selector**
+
+Selector string of the wrapper element.
+
+**@param {Number} height**
+
+Static height of the paralax page.
+
+**@param {Object} [options]**
+
+* disableStyles {Boolean} - disable ParalaxBro default page styling.
+
+
 ### .addCollection(selector, [options])
 
 ```javascript
@@ -121,12 +136,11 @@ const c1 = laxbro.addCollection('#collection1', {});
 ```
 
 **@param {String} selector**
-
 Selector string of the collection wrapper element.
 
 e.g. '#wrapper'
 
-**@param {Object} options**
+**@param {Object} [options]**
 
 Options include:
 * top {Number|Object}
@@ -158,7 +172,16 @@ Options include:
 * zIndex {Number|Object}
 * update {Object}
 
+
 ### .addElement(selector, obj)
+
+```javascript
+const collection = require('./collection');
+
+collection.addElement('#elementSelector', {
+  /* options */
+});
+```
 
 **@param {String} selector**
 

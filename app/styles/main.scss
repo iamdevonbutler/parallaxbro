@@ -1,3 +1,7 @@
-body {
-  height: auto;
+#parallax {
+  max-width: 1100px;
+  margin: 0 auto;
 }
+
+@import 'partials/page1';
+@import 'partials/page2';

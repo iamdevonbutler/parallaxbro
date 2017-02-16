@@ -94,9 +94,14 @@ gulp.task('html', () => {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('images', () => {
+  return gulp.src('app/images/**/*')
+    .pipe($.cache($.imagemin()))
+    .pipe(gulp.dest('dist/images'));
+});
+
 gulp.task('extras', () => {
   return gulp.src([
-    // 'app/*.*',
     'app/LICENSE',
     '!app/*.html'
   ], {
@@ -123,11 +128,12 @@ gulp.task('serve', () => {
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('lib/**/*.js', ['scripts:lib', 'scripts:app']);
   gulp.watch('app/**/*.js', ['scripts:app']);
+  gulp.watch('app/images/**', ['images']);
 
 });
 
 gulp.task('build', ['clean', 'lint'], (cb) => {
-  const preBuildTasks = ['styles', 'scripts:lib', 'scripts:lib:compress', 'scripts:app', 'extras'];
+  const preBuildTasks = ['styles', 'images', 'scripts:lib', 'scripts:lib:compress', 'scripts:app', 'extras'];
   return runSequence(preBuildTasks, 'html', cb);
 });
 
@@ -137,7 +143,7 @@ gulp.task('deploy', ['build'], () => {
 });
 
 gulp.task('default', ['clean', 'lint'], () => {
-  const preServeTasks = ['styles', 'scripts:lib', 'scripts:app', 'extras'];
+  const preServeTasks = ['styles', 'images', 'scripts:lib', 'scripts:app', 'extras'];
   runSequence(preServeTasks, 'html', () => {
     gulp.start('serve');
   });

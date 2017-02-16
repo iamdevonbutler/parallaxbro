@@ -1,47 +1,26 @@
 const ParallaxBro = require('../lib');
 
-const laxbro = new ParallaxBro();
+const laxbro = new ParallaxBro('#parallax', 2000);
 
-var page1, page2;
 
-page1 = laxbro.addCollection('#collection1', {
-  // top: {},
-  // hide: {1000: true},
-  center: true,
+const c1 = laxbro.addCollection('#collection1', {
+  // hide: true,
 });
 
-page1.addElements({
-  '#img1': {
-    speed: {
-      0: .5,
-      // 300: -1,
-    },
-    top: {
-      // 500: 100,
-    },
-    // hide: {
-    //   100: false,
-    //   600: true,
-    // },
-    // speed: {
-    //   0: 1,
-    //   200: .5,
-    //   300: 0,
-    //   400: -1,
-    // },
+c1.addElements({
+  '[src="images/intro.jpg"]': {
+    top: 200,
+    center: true,
+    speed: .6,
   },
-  // '#img2': {
-  //   hide: true,
-  //   top: 800,
-  //   zIndex: 0,
-  //   speed: .1,
-  //   update: {
-  //     0: () => {
-  //       this.el.fadeIn();
-  //     },
-  //     400: () => {
-  //       this.el.fadeOut();
-  //     }
-  //   }
-  // }
+  '[src="images/splatter_intro1.jpg"]': {
+    top: 800,
+    center: true,
+    speed: .8,
+    zIndex: -2,
+  }
+});
+
+const c2 = laxbro.addCollection('#collection2', {
+
 });
