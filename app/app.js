@@ -13,8 +13,8 @@ page1 = laxbro.addCollection('#collection1', {
 page1.addElements({
   '#img1': {
     speed: {
-      0: 2,
-      500: -2,
+      0: 1,
+      300: -1,
     },
     top: {
       // 500: 100,
