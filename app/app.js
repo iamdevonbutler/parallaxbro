@@ -5,7 +5,7 @@ const laxbro = new ParallaxBro();
 var page1, page2;
 
 page1 = laxbro.addCollection('#collection1', {
-  top: 200,
+  top: {0: 200, 300: 350},
   // hide: {1000: true},
   center: true,
 });
@@ -14,7 +14,7 @@ page1.addElements({
   '#img1': {
     speed: {
       0: 1,
-      300: -1,
+      // 300: -1,
     },
     top: {
       // 500: 100,

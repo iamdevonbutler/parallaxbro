@@ -3,3 +3,5 @@ standalone and jquery dependent version
 
 a debugger might be useful - a way provide info on each element.
 travis
+
+- custom transition timing and easing function
