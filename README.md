@@ -49,6 +49,10 @@ Find the library at: [./dist/index.js](https://github.com/iamdevonbutler/paralla
 
 \* *jQuery is a required dependency*
 
+## Demo
+
+[https://iamdevonbutler.github.io/parallaxbro/](https://iamdevonbutler.github.io/parallaxbro/)
+
 ## Collections and elements
 
 Parallax *elements* are grouped into *collections*. A collection is a convenient way to apply styles to a group of elements. Properties such as: `top`, `hide`, `center`, are applied to all elements in a collection. Collections are a useful tool when developing parallax webpages.
