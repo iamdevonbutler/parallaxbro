@@ -118,7 +118,7 @@ Selector string of the wrapper element.
 
 **@param {Number} height**
 
-Static height of the paralax page.
+Static height of the paralax page. It's useful to set it to a large number in development and change it once your design is completed.
 
 **@param {Object} [options]**
 
