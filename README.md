@@ -9,7 +9,7 @@ const c1 = laxbro.addCollection('#collection1');
 c1.addElements({
   '#element1': {
     top: 100, // All position values are assumed to be in px.
-    hide: {0: false, 500: true}, // Will hide once window.pageYOffset >= 500px.
+    hide: {0: false, 500: true}, // Will hide once window.pageYOffset ≈ 500px.
     center: true, // Applies 'margin: 0 auto'
     speed: {
       0: 1, // Speed 1 is normal scrolling rate.
@@ -21,7 +21,7 @@ c1.addElements({
       0: ($el, posY) => $el.fadeOut(), // $el is jQuery wrapped element.
       1000: ($el, posY) => $el.fadeIn(), // Called when window.pageYOffset ≈ 1000.
     },
-    xFunc: (posY) => posY,  
+    xFunc: (posY) => posY, // Changes the element's x position.
   },
   '#element2': { /* ... */ }
 });
@@ -51,11 +51,11 @@ See [App.js](https://github.com/iamdevonbutler/parallaxbro/blob/master/app/app.j
 
 ## Collections and elements
 
-Parallax *elements* are grouped into *collections*. A collection is a convenient way to apply behaviors to a group of elements. Properties such as: `top`, and `hide`, are applied to all elements in a collection. Collections are a useful in the development of parallax designs. For instance, they offer a convenient way to either hide or position sections of your content.
+Parallax *elements* are grouped into *collections*. A collection is a convenient way to apply behaviors to a group of elements. Properties such as: `top`, and `hide`, are applied to all elements in a collection. Collections are a useful in the development of parallax designs; for instance, they offer a convenient way to either hide or position sections of your content.
 
 
 ## Multi parameter objects
-In the example above, the `hide` and `speed` options accept both simple Boolean / Number values or a keyed object. The object keys, we call them breakpoints, change the behavior of your program when the page's y-scroll position is === the breakpoint. Object values for options can be passed to both **collections and elements**.
+In the example above, the `hide` and `speed` options accept both simple Boolean / Number values or a keyed object. The object keys, we call them breakpoints, change the behavior of your program when the pageYOffset position is == the breakpoint. Object values for options can be passed to both **collections and elements**.
 
 ```javascript
 c1.addElement('#wrapper', {
@@ -87,7 +87,7 @@ Leverage the `update` option to preform updates of any sort at specific breakpoi
 const c1 = require('./collection');
 
 c1.addElements('#element1', {
-  /**
+ /**
   * @param {Object} $el - element wrapped in jQuery
   * @param {Number} posY
   * @this - the parallax element.
@@ -106,6 +106,9 @@ The xFunc option for parallax elements allows you to move elements on the x-axis
 const c1 = require('./collection');
 
 c1.addElements('#element1', {
+   /**
+    * @param {Number} posY
+    */     
     xFunc: {
       1200: (posY) => -posY
     },
