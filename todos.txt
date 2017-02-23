@@ -1,9 +1,4 @@
-standalone and jquery dependent version
-- via opt - m:0 p:0 element and collection
-
-a debugger might be useful - a way provide info on each element.
 travis
 
-- custom transition timing and easing function
 - include ParalaxBro options in readme
-xfunc docs
+- xfunc docs

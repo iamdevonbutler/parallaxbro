@@ -4,33 +4,26 @@
 const ParallaxBro = require('parallaxbro');
 const laxbro = new ParallaxBro('#wrapper', '2000px');
 
-const c1 = laxbro.addCollection('#collection1', {
-  top: 0,
-  hide: false,
-  center: false,
-  zIndex: -1,
-  update: {},
-});
+const c1 = laxbro.addCollection('#collection1');
 
 c1.addElements({
   '#element1': {
-    top: 100, // Values are assumed to be in px.
-    hide: {0: false, 500: true}, // Will hide once scroll pos > 500px.
-    center: false,
+    top: 100, // All position values are assumed to be in px.
+    hide: {0: false, 500: true}, // Will hide once window.pageYOffset >= 500px.
+    center: true, // Applies 'margin: 0 auto'
     speed: {
-      0: 1,
-      500: 0,
+      0: 1, // Speed 1 is normal scrolling rate.
+      500: 0, // Speed 0 will stop the element from scrolling.
+      1000: -1, // Negative values scroll the element in reverse.
     }
-    zIndex: -1,
+    zIndex: -1, // -1 is default zIndex for all elements.
     update: {
-      1000: function($el, posY) {
-        $el.fadeIn();
-      }
-    },    
+      0: ($el, posY) => $el.fadeOut(), // $el is jQuery wrapped element.
+      1000: ($el, posY) => $el.fadeIn(), // Called when window.pageYOffset ≈ 1000.
+    },
+    xFunc: (posY) => posY,  
   },
-  '#element2': {
-    /* ... */
-  }
+  '#element2': { /* ... */ }
 });
 
 ```
@@ -53,17 +46,19 @@ Find the library at: [./dist/index.js](https://github.com/iamdevonbutler/paralla
 
 [https://iamdevonbutler.github.io/parallaxbro/](https://iamdevonbutler.github.io/parallaxbro/)
 
+See [App.js](https://github.com/iamdevonbutler/parallaxbro/blob/master/app/app.js) to view the demo's parallaxbro config.
+
+
 ## Collections and elements
 
-Parallax *elements* are grouped into *collections*. A collection is a convenient way to apply styles to a group of elements. Properties such as: `top`, `hide`, `center`, are applied to all elements in a collection. Collections are a useful tool when developing parallax webpages.
+Parallax *elements* are grouped into *collections*. A collection is a convenient way to apply behaviors to a group of elements. Properties such as: `top`, and `hide`, are applied to all elements in a collection. Collections are a useful in the development of parallax designs. For instance, they offer a convenient way to either hide or position sections of your content.
 
-For instance, collections, w/ use of the `hide` property, can be built in sections, w/ all inactive sections hidden (hide=true)...then, once all sections are built, each section can be vertically positioned w/ use of the `top` property.
 
-## Parameter objects
-In the example above, the `hide` and `speed` options, are set to an object, and to that - when the user scrolls down past the breakpoint (y scroll position), the element's properties will change. Options **for both collections and elements** can be written in object notation to create a dynamic sequence of option values occurring at custom breakpoints.
+## Multi parameter objects
+In the example above, the `hide` and `speed` options accept both simple Boolean / Number values or a keyed object. The object keys, we call them breakpoints, change the behavior of your program when the page's y-scroll position is === the breakpoint. Object values for options can be passed to both **collections and elements**.
 
 ```javascript
-c1.addElemet('#wrapper', {
+c1.addElement('#wrapper', {
   top: {
     0: 0,
     500: 100,
@@ -89,27 +84,38 @@ Setting the speed option to **0** will freeze the element on the page.
 Leverage the `update` option to preform updates of any sort at specific breakpoints:
 
 ```javascript
-const collection = require('./collection');
+const c1 = require('./collection');
 
-collection.addElements('#wrapper', {
+c1.addElements('#element1', {
   /**
   * @param {Object} $el - element wrapped in jQuery
   * @param {Number} posY
   * @this - the parallax element.
   */
   update: {
-    0: function($el, posY) {
-      $el.fadeIn()
-    }
-    200: function($el, posY) {
-      $el.fadeOut()
-    }
+    0: ($el, posY) => $el.fadeOut()
+    200: ($el, posY) => $el.fadeIn()
   }
 });
 ```
 
+## xFunc
+The xFunc option for parallax elements allows you to move elements on the x-axis in addition to the y-axis.
+
+```javascript
+const c1 = require('./collection');
+
+c1.addElements('#element1', {
+    xFunc: {
+      1200: (posY) => -posY
+    },
+});
+```
+The callback is passed **posY** (pageYOffset - breakpoint), and the function should return the element's new x position.
+
+
 ## Debug mode
-Pass the option `debug=true` to add a **posY** indicator to the page.
+Pass the option `debug=true` to add a **window.pageYOffset** indicator to the page.
 
 
 ## API
@@ -122,11 +128,13 @@ Selector string of the wrapper element.
 
 **@param {Number} height**
 
-Static height of the paralax page. It's useful to set it to a large number in development and change it once your design is completed.
+Static height of the parallax page. It's useful to set it to a large number in development and change it once your design is completed.
 
 **@param {Object} [options]**
 
+* debug {Boolean} - adds a debugger to the page.
 * disableStyles {Boolean} - disable ParalaxBro default page styling.
+* height {String} - parallax page height.
 
 
 ### .addCollection(selector, [options])
@@ -142,14 +150,11 @@ const c1 = laxbro.addCollection('#collection1', {});
 **@param {String} selector**
 Selector string of the collection wrapper element.
 
-e.g. '#wrapper'
-
 **@param {Object} [options]**
 
 Options include:
 * top {Number|Object}
 * hide {Boolean|Object}
-* center {Boolean|Object}
 * zIndex {Number|Object}
 * update {Object}
 
@@ -157,9 +162,9 @@ Options include:
 ### .addElements(obj)
 
 ```javascript
-const collection = require('./collection');
+const c1 = require('./collection');
 
-collection.addElements({
+c1.addElements({
   '#elementSelector': { /* options */ },
   '#elementSelector2': { /* options */ },
 });
@@ -175,14 +180,15 @@ Options include:
 * center {Boolean|Object}
 * zIndex {Number|Object}
 * update {Object}
+* xFunc {Function|Object}
 
 
 ### .addElement(selector, obj)
 
 ```javascript
-const collection = require('./collection');
+const c1 = require('./collection');
 
-collection.addElement('#elementSelector', {
+c1.addElement('#elementSelector', {
   /* options */
 });
 ```
@@ -194,4 +200,4 @@ Selector string of the element.
 
 **@param {Object} options**
 
-Options are the same as for `.addElements()`
+Options are the same as `.addElements()`

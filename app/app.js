@@ -5,7 +5,7 @@ const laxbro = new ParallaxBro('#parallax', 2900, {
 });
 
 
-const c1 = laxbro.addCollection('#collection1', {});
+const c1 = laxbro.addCollection('#collection1');
 c1.addElements({
   '[src="images/intro.jpg"]': {
     top: 200,
