@@ -108,6 +108,10 @@ collection.addElements('#wrapper', {
 });
 ```
 
+## Debug mode
+Pass the option `debug=true` to add a **posY** indicator to the page.
+
+
 ## API
 
 ### ParallaxBro(selector, height, [options]) *- constructor.*

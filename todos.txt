@@ -6,3 +6,4 @@ travis
 
 - custom transition timing and easing function
 - include ParalaxBro options in readme
+xfunc docs
