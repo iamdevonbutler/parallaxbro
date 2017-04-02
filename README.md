@@ -204,3 +204,6 @@ Selector string of the element.
 **@param {Object} options**
 
 Options are the same as `.addElements()`
+
+### .unbind()
+Unbinds Parallaxbro from requestAnimationFrame recused loop.
