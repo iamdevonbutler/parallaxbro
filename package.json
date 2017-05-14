@@ -1,12 +1,15 @@
 {
   "name": "parallaxbro",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A powerful JS parallax framework",
   "main": "lib/index.js",
   "files": [
     "lib"
   ],
   "scripts": {
+    "clean": "rimraf lib",
+    "build": "BABEL_ENV=commonjs babel src --out-dir lib",
+    "prepublish": "npm run clean && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +23,7 @@
   },
   "homepage": "https://github.com/iamdevonbutler/parallaxbro#readme",
   "devDependencies": {
-    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
     "babelify": "^7.3.0",
     "browser-sync": "^2.18.6",
     "browserify": "^13.3.0",

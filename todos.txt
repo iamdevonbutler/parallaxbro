@@ -1,4 +1,7 @@
 travis
 
-- include ParalaxBro options in readme
+- include ParallaxBro options in readme
 - xfunc docs
+- do we need to do that _stopAnimationFrame business?
+- more positioning params. should be able to accept 100vh values and accept fucntions that are called
+given dynamic variables.

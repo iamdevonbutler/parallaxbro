@@ -136,7 +136,7 @@ Static height of the parallax page. It's useful to set it to a large number in d
 **@param {Object} [options]**
 
 * debug {Boolean} - adds a debugger to the page.
-* disableStyles {Boolean} - disable ParalaxBro default page styling.
+* disableStyles {Boolean} - disable ParallaxBro default page styling.
 * height {String} - parallax page height.
 
 
